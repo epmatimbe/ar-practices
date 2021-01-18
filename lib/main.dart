@@ -8,11 +8,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter AR',
+      title: 'AR Práctica',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter AR'),
+      home: MyHomePage(title: 'AR Práctica'),
     );
   }
 }
@@ -31,13 +31,17 @@ class _MyHomePageState extends State<MyHomePage> {
   _onArCoreViewCreated(ArCoreController _arcoreController) {
     arCoreController = _arcoreController;
     _addSphere(arCoreController);
-    _addCube(arCoreController);
-    _addCyclinder(arCoreController);
+    // _addCube(arCoreController);
+    // _addCyclinder(arCoreController);
   }
 
   _addSphere(ArCoreController _arcoreController) {
-    final material = ArCoreMaterial(color: Colors.deepPurple);
-    final sphere = ArCoreSphere(materials: [material], radius: 0.2);
+    final material = ArCoreMaterial(
+        color: Colors.red, metallic: 1, reflectance: 0.2,roughness: 0);
+    final sphere = ArCoreSphere(
+      materials: [material],
+      radius: 0.2,
+    );
     final node = ArCoreNode(
       shape: sphere,
       position: vector.Vector3(
@@ -102,11 +106,14 @@ class _MyHomePageState extends State<MyHomePage> {
             Positioned(
               bottom: 2.0,
               right: 1.0,
-              child: CircleAvatar(backgroundColor:Colors.blue, 
+              child: CircleAvatar(
+                backgroundColor: Colors.blue,
                 child: IconButton(
                   icon: Icon(Icons.thumb_up),
                   color: Colors.white,
-                  onPressed: () {print("OKay");},
+                  onPressed: () {
+                    print("OKay");
+                  },
                 ),
               ),
             ),
