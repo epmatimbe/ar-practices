@@ -1,123 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
-import 'package:vector_math/vector_math_64.dart' as vector;
+import 'package:splashscreen/splashscreen.dart';
 
-void main() => runApp(MyApp());
+import 'home_page.dart';
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'AR Práctica',
+void main() {
+  runApp(new MaterialApp(
+        title: 'AR Experimental',
+    debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'AR Práctica'),
-    );
-  }
+    home: new MyApp(),
+  ));
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
+class MyApp extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyAppState createState() => new _MyAppState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  ArCoreController arCoreController;
-
-  _onArCoreViewCreated(ArCoreController _arcoreController) {
-    arCoreController = _arcoreController;
-    _addSphere(arCoreController);
-    // _addCube(arCoreController);
-    // _addCyclinder(arCoreController);
-  }
-
-  _addSphere(ArCoreController _arcoreController) {
-    final material = ArCoreMaterial(
-        color: Colors.red, metallic: 1, reflectance: 0.2,roughness: 0);
-    final sphere = ArCoreSphere(
-      materials: [material],
-      radius: 0.2,
-    );
-    final node = ArCoreNode(
-      shape: sphere,
-      position: vector.Vector3(
-        0,
-        0,
-        -1,
-      ),
-    );
-
-    _arcoreController.addArCoreNode(node);
-  }
-
-  _addCyclinder(ArCoreController _arcoreController) {
-    final material = ArCoreMaterial(color: Colors.green, reflectance: 1);
-    final cylinder =
-        ArCoreCylinder(materials: [material], radius: 0.4, height: 0.3);
-    final node = ArCoreNode(
-      shape: cylinder,
-      position: vector.Vector3(
-        0,
-        -2.5,
-        -3.0,
-      ),
-    );
-
-    _arcoreController.addArCoreNode(node);
-  }
-
-  _addCube(ArCoreController _arcoreController) {
-    final material = ArCoreMaterial(color: Colors.pink, metallic: 1);
-    final cube =
-        ArCoreCube(materials: [material], size: vector.Vector3(1, 1, 1));
-    final node = ArCoreNode(
-      shape: cube,
-      position: vector.Vector3(
-        -0.5,
-        -0.5,
-        -3,
-      ),
-    );
-
-    _arcoreController.addArCoreNode(node);
-  }
-
-  @override
-  void dispose() {
-    arCoreController.dispose();
-    super.dispose();
-  }
-
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Stack(
-          children: [
-            ArCoreView(
-              onArCoreViewCreated: _onArCoreViewCreated,
-            ),
-            Positioned(
-              bottom: 2.0,
-              right: 1.0,
-              child: CircleAvatar(
-                backgroundColor: Colors.blue,
-                child: IconButton(
-                  icon: Icon(Icons.thumb_up),
-                  color: Colors.white,
-                  onPressed: () {
-                    print("OKay");
-                  },
-                ),
-              ),
-            ),
-          ],
-        ));
+    return new SplashScreen(
+      seconds: 14,
+      navigateAfterSeconds: new MyHomePage(
+        title: 'AR Experimental',
+      ),
+      title: new Text(
+        'AR Experimental',
+        style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0,color: Colors.deepPurple,),
+      ),
+      // image: new Image.network(
+      //     'https://flutter.io/images/catalog-widget-placeholder.png'),
+      backgroundColor: Colors.white,
+      loaderColor: Colors.deepPurple,
+    );
   }
 }
+
+class AfterSplash extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Welcome In SplashScreen Package"),
+        automaticallyImplyLeading: false,
+      ),
+      body: new Center(
+        child: new Text(
+          "Succeeded!",
+          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0),
+        ),
+      ),
+    );
+  }
+}
+
