@@ -105,6 +105,31 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.info),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    child: AlertDialog(
+                      title: Text('Sobre a aplicação'),
+                      content: Text(
+                          'A aplicação AR Experimental foi desenvolvida serve de DEMO daquilo que é uma implementação e teste da Realidade Aumentada. \n\nDesenvolvida por:\nAlmirante Rodrigues\nEdson Matimbe\nNemias Sitoe\n\nRedes Multímedia\nUniversidade Pedagógica de Maputo 2021'),
+                      actions: [
+                        FlatButton.icon(
+                            label: Text('Certo'),
+                            icon: Icon(Icons.thumb_up),
+                            onPressed: () {
+                              Navigator.of(context, rootNavigator: true)
+                                  .pop('dialog');
+                            })
+                      ],
+                    ),
+                    barrierDismissible: true,
+                    useRootNavigator: true,
+                  );
+                })
+          ],
         ),
         body: Column(
           children: [
@@ -131,8 +156,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: Icon(Icons.add),
                             ),
                             onSelected: (int _solid) {
-                              setState( () async{
-                                await arCoreController.removeNode(nodeName: 'node');
+                              setState(() async {
+                                await arCoreController.removeNode(
+                                    nodeName: 'node');
                                 if (_solid == 0)
                                   _addCube(arCoreController);
                                 else if (_solid == 1)
@@ -182,25 +208,25 @@ class _MyHomePageState extends State<MyHomePage> {
                         Text('Metalico')
                       ],
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Text('Raio'),
-                        ),
-                        Slider(
-                          min: 0.0,
-                          max: 1.0,
-                          value: _radius,
-                          onChanged: (value) {
-                            setState(() {
-                              _radius = value;
-                            });
-                          },
-                        )
-                      ],
-                    ),
+                    // Column(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     Padding(
+                    //       padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    //       child: Text('Raio'),
+                    //     ),
+                    //     Slider(
+                    //       min: 0.0,
+                    //       max: 1.0,
+                    //       value: _radius,
+                    //       onChanged: (value) {
+                    //         setState(() {
+                    //           _radius = value;
+                    //         });
+                    //       },
+                    //     )
+                    //   ],
+                    // ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -220,25 +246,25 @@ class _MyHomePageState extends State<MyHomePage> {
                         )
                       ],
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Text('Roughness'),
-                        ),
-                        Slider(
-                          min: 0.0,
-                          max: 1.0,
-                          value: _roughness,
-                          onChanged: (value) {
-                            setState(() {
-                              _roughness = value;
-                            });
-                          },
-                        )
-                      ],
-                    )
+                    // Column(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     Padding(
+                    //       padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    //       child: Text('Roughness'),
+                    //     ),
+                    //     Slider(
+                    //       min: 0.0,
+                    //       max: 1.0,
+                    //       value: _roughness,
+                    //       onChanged: (value) {
+                    //         setState(() {
+                    //           _roughness = value;
+                    //         });
+                    //       },
+                    //     )
+                    //   ],
+                    // )
                   ],
                 ),
               ),
