@@ -12,27 +12,34 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  double _reflectance = 0;
-  double _roughness = 0;
+  double _radius = 0.4;
+  double _reflectance = 1.0;
+  double _roughness = 0.7;
   bool metallic = false;
   int _solid;
   ArCoreController arCoreController;
 
   _onArCoreViewCreated(ArCoreController _arcoreController) {
     arCoreController = _arcoreController;
-    _addSphere(arCoreController);
-    // _addCube(arCoreController);
-    // _addCyclinder(arCoreController);
+    if (_solid == 0)
+      _addSphere(arCoreController);
+    else if (_solid == 1)
+      _addCube(arCoreController);
+    else if (_solid == 2) _addCyclinder(arCoreController);
   }
 
   _addSphere(ArCoreController _arcoreController) {
     final material = ArCoreMaterial(
-        color: Colors.red, metallic: metallic?1:0, reflectance: _reflectance, roughness: 0);
+        color: Colors.red,
+        metallic: metallic ? 1 : 0,
+        reflectance: _reflectance,
+        roughness: 0);
     final sphere = ArCoreSphere(
       materials: [material],
       radius: 0.2,
     );
     final node = ArCoreNode(
+      name: 'node',
       shape: sphere,
       position: vector.Vector3(
         0,
@@ -45,10 +52,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _addCyclinder(ArCoreController _arcoreController) {
-    final material = ArCoreMaterial(color: Colors.green, reflectance: 1);
+    final material = ArCoreMaterial(
+        color: Colors.red,
+        metallic: metallic ? 1 : 0,
+        reflectance: _reflectance,
+        roughness: 0);
     final cylinder =
         ArCoreCylinder(materials: [material], radius: 0.4, height: 0.3);
     final node = ArCoreNode(
+      name: 'node',
       shape: cylinder,
       position: vector.Vector3(
         0,
@@ -61,10 +73,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _addCube(ArCoreController _arcoreController) {
-    final material = ArCoreMaterial(color: Colors.pink, metallic: 1);
+    final material = ArCoreMaterial(
+        color: Colors.red,
+        metallic: metallic ? 1 : 0,
+        reflectance: _reflectance,
+        roughness: 0);
     final cube =
         ArCoreCube(materials: [material], size: vector.Vector3(1, 1, 1));
     final node = ArCoreNode(
+      name: 'node',
       shape: cube,
       position: vector.Vector3(
         -0.5,
@@ -99,6 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Expanded(
                       child: ArCoreView(
+                        debug: false,
                         onArCoreViewCreated: _onArCoreViewCreated,
                       ),
                     ),
@@ -108,13 +126,19 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: PopupMenuButton<int>(
-                            child: CircleAvatar(radius: 25.0,
+                            child: CircleAvatar(
+                              radius: 25.0,
                               child: Icon(Icons.add),
                             ),
-                            onSelected: (int result) {
-                              setState(() {
-                                _solid = result;
-                                print(_solid);
+                            onSelected: (int _solid) {
+                              setState( () async{
+                                await arCoreController.removeNode(nodeName: 'node');
+                                if (_solid == 0)
+                                  _addCube(arCoreController);
+                                else if (_solid == 1)
+                                  _addSphere(arCoreController);
+                                else if (_solid == 2)
+                                  _addCyclinder(arCoreController);
                               });
                             },
                             itemBuilder: (BuildContext context) =>
@@ -141,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               width: mdqWidth,
               child: Padding(
-                      padding: const EdgeInsets.only(bottom: 20.0),
+                padding: const EdgeInsets.only(bottom: 20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -156,6 +180,25 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                         ),
                         Text('Metalico')
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Text('Raio'),
+                        ),
+                        Slider(
+                          min: 0.0,
+                          max: 1.0,
+                          value: _radius,
+                          onChanged: (value) {
+                            setState(() {
+                              _radius = value;
+                            });
+                          },
+                        )
                       ],
                     ),
                     Column(
