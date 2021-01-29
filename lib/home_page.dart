@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: AlertDialog(
                       title: Text('Sobre a aplicação'),
                       content: Text(
-                          'A aplicação AR Experimental foi desenvolvida serve de DEMO daquilo que é uma implementação e teste da Realidade Aumentada. \n\nDesenvolvida por:\nAlmirante Rodrigues\nEdson Matimbe\nNemias Sitoe\n\nRedes Multímedia\nUniversidade Pedagógica de Maputo 2021'),
+                          'Este é o projecto básico de teste de AR. A aplicação AR Experimental foi desenvolvida para servir de DEMO para uma implementação e teste de Realidade Aumentada. \n\nDesenvolvida por:\nAlmirante Rodrigues\nEdson Matimbe\nNemias Sitoe\n\nRedes Multímedia\nUniversidade Pedagógica de Maputo 2021'),
                       actions: [
                         FlatButton.icon(
                             label: Text('Certo'),
