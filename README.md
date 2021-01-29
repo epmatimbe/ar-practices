@@ -6,6 +6,7 @@ Este é o projecto básico de teste de AR. A aplicação AR Experimental foi des
 - *Almirante Rodrigues*  
 - *Edson Matimbe*  
 - *Nemias Sitoe*  
+
 **Redes Multímedia**  
 **Universidade Pedagógica de Maputo 2021**
 
