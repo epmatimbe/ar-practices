@@ -1,8 +1,8 @@
-# AR_test
+# AR (Realidade Aumentada) Experimental
 
-Este é o projecto básico de teste de AR. A aplicação AR Experimental foi desenvolvida para servir de DEMO para uma implementação e teste de Realidade Aumentada.
+Este é o projecto básico de teste de AR. A aplicação AR Experimental foi desenvolvida para servir de DEMO para uma implementação e teste de Realidade Aumentada.  
 
-**Desenvolvida por:**
+**Desenvolvida por:**  
 - *Almirante Rodrigues*  
 - *Edson Matimbe*  
 - *Nemias Sitoe*  
